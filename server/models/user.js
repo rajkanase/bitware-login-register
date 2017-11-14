@@ -16,15 +16,6 @@ let emailLengthChecker = (email) =>{
 };
 
 
-const emailValidators = [{
-    validator: emailLengthChecker,
-    message: 'E-mail must be at least 5 characters but no more than 30'
-},
-{
-    validator: validEmailChecker,
-    message: 'Must be a valid E-mail.'
-}];
-
 let validEmailChecker = (email) =>{
     if(!email){
         return false;
@@ -34,11 +25,84 @@ let validEmailChecker = (email) =>{
     }
 };
 
+let usernameLengthChecker = (username)=>{
+    if(!username){
+        return false;
+    }else{
+        if(username.length < 3 || username.length > 15){
+            return false;
+        }else{
+            return true;
+        }
+    }
+};
+
+let validUsername = (username)=>{
+    if(!username){
+        return false;
+    }else{
+        const regExp = new RegExp(/^[A-Za-z0-9]+$/);
+        return regExp.test(username);
+    }
+};
+
+let passwordLengthChecker = (password)=>{
+    if(!password){
+        return false;
+    }else{
+        if(password.length < 8 || password.length > 35){
+            return false;
+        }else{
+            return true;
+        }
+    }
+};
+
+let validPassword = (password)=>{
+    if(!password){
+        return false;
+    }else{
+        const regExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+        return regExp.test(password);
+    }
+};
+
+const passwordValidators = [{
+    validator: passwordLengthChecker,
+    message: 'Password must be at least 8 characters but no more than 35'
+},
+{
+    validator: validPassword,
+    message: 'Must contain one uppercase,lowercase,special symbol and number'
+}
+];
+
+
+const emailValidators = [{
+    validator: emailLengthChecker,
+    message: 'E-mail must be at least 5 characters but no more than 30'
+},
+{
+    validator: validEmailChecker,
+    message: 'must be a valid e-mail.'
+}
+];
+
+const usernameValidators = [{
+    validator: usernameLengthChecker,
+    message: 'Username must be at least 3 characters but no more than 15'
+},
+{
+    validator: validUsername,
+    message: 'must be a valid Username.'
+}
+];
+
 const userSchema=new Schema({
     email: { type:String, required:true, unique:true, lowercase:true, validate: emailValidators},
-    username: { type:String, required:true, unique:true, lowercase:true},
+    username: { type:String, required:true, unique:true, lowercase:true, validate: usernameValidators},
     mobile: { type:Number,required:true},
-    password: {type:String,required:true}
+    password: {type:String,required:true, validate: passwordValidators}
 
 });
 
