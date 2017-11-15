@@ -26,6 +26,18 @@
   </div>
 
   <div class="form-group">
+    <label for="mobile">Mobile</label>
+    <div [ngClass]="{'has-error':(form.controls.mobile.error && form.controls.mobile.dirty),'has-success':!form.controls.mobile.errors}">
+      <input type="tel" class="form-control" name="mobile" autocomplete="off" placeholder="Mobile" formControlName="mobile"/>
+      <ul class="help-block">
+        <li *ngIf="form.controls.mobile.errors?.required && form.controls.mobile.dirty">This field is required.</li>
+        <li *ngIf="(form.controls.mobile.errors?.minlength || form.controls.mobile.errors?.maxlength) && form.controls.mobile.dirty">Mobile number must be 10 digit.</li>
+        <li *ngIf="form.controls.mobile.errors?.validMobile && form.controls.mobile.dirty">The mobile number must be valid</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="form-group">
     <label for="password">Password</label>
     <div [ngClass]="{'has-error':(form.controls.password.error && form.controls.password.dirty),'has-success':!form.controls.password.errors}">
       <input type="password" class="form-control" name="password" autocomplete="off" placeholder="Password" formControlName="password"/>

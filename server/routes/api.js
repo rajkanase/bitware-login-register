@@ -51,6 +51,10 @@ router.post('/register',(req,res)=>{
                                              }else{
                                             if(err.errors.password){
                                                  res.json({ success: false, message: err.errors.password.message});
+                                            }else{
+                                                if(err.errors.mobile){
+                                                    res.json({success: false, message: err.errors.mobile.message})
+                                                }
                                             }
                                         }
                                     }

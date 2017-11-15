@@ -7,6 +7,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { MyRoutingModule } from './router';
 import { RegisterComponent } from './register/register.component';
+import { AuthService } from './services/auth.service';
+import { HttpModule } from '@angular/http';
+
 
 @NgModule({
   declarations: [
@@ -20,9 +23,10 @@ import { RegisterComponent } from './register/register.component';
     BrowserModule,
     MyRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

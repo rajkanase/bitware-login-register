@@ -37,6 +37,28 @@ let usernameLengthChecker = (username)=>{
     }
 };
 
+let mobileLengthChecker = (mobile) =>{
+    if(!mobile){
+        return false;
+    }else{
+        if(mobile.length > 10 || mobile.length < 10){
+            return false;
+        }else{
+            return true;
+        }
+    }
+};
+
+let validMobile = (mobile)=>{
+    if(!mobile){
+        return false;
+    }else{
+        const regExp = new RegExp(/^(\+\d{1,3}[- ]?)?\d{10}$/);
+        return regExp.test(mobile);
+    }
+};
+
+
 let validUsername = (username)=>{
     if(!username){
         return false;
@@ -77,6 +99,16 @@ const passwordValidators = [{
 }
 ];
 
+const mobileValidators = [{
+    validator: mobileLengthChecker,
+    message: 'Mobile number must be of 10 digits.'
+},
+{
+    validator: validMobile,
+    message: 'Must be a valid mobile number.'
+}
+];
+
 
 const emailValidators = [{
     validator: emailLengthChecker,
@@ -101,7 +133,7 @@ const usernameValidators = [{
 const userSchema=new Schema({
     email: { type:String, required:true, unique:true, lowercase:true, validate: emailValidators},
     username: { type:String, required:true, unique:true, lowercase:true, validate: usernameValidators},
-    mobile: { type:Number,required:true},
+    mobile: { type:Number,required:true, validate: mobileValidators},
     password: {type:String,required:true, validate: passwordValidators}
 
 });

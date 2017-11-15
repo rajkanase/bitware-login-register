@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,8 @@ export class RegisterComponent implements OnInit {
   form:FormGroup;
 
   constructor(
-    private formBuilder:FormBuilder
+    private formBuilder:FormBuilder,
+    private authService:AuthService
   ) {
     this.createForm();
    }
@@ -30,6 +32,12 @@ export class RegisterComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(15),
         this.validUsername
+      ])],
+      mobile:['', Validators.compose([
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        this.validMobile
       ])],
       password:['', Validators.compose([
         Validators.required,
@@ -60,6 +68,16 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+
+  validMobile(controls){
+    const regExp=new RegExp(/^(\+\d{1,3}[- ]?)?\d{10}$/);
+    if(regExp.test(controls.value)){
+      return null;
+    }else{
+      return { validMobile:true}
+    }
+  }
+
   validPassword(controls){
     const regExp=new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
     if(regExp.test(controls.value)){
@@ -80,7 +98,15 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegisterSubmit(){
-   console.log(this.form.value);
+    const user={
+      email: this.form.get('email').value,
+      username:this.form.get('username').value,
+      mobile:this.form.get('mobile').value,
+      password:this.form.get('password').value
+    }
+    this.authService.registerUser(user).subscribe(data=>{
+      console.log(data);
+    })
    
   }
 
