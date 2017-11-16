@@ -9,6 +9,12 @@ import { MyRoutingModule } from './router';
 import { RegisterComponent } from './register/register.component';
 import { AuthService } from './services/auth.service';
 import { HttpModule } from '@angular/http';
+import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { AuthGuard } from './guards/auth.guard';
+import { NotAuthGuard } from './guards/notAuth.guard';
+
 
 
 @NgModule({
@@ -17,16 +23,19 @@ import { HttpModule } from '@angular/http';
     NavbarComponent,
     DashboardComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     MyRoutingModule,
     ReactiveFormsModule,
+    FlashMessagesModule,
     FormsModule,
     HttpModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard, NotAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
