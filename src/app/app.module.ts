@@ -14,6 +14,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notAuth.guard';
+import { BlogComponent } from './blog/blog.component';
+import { BlogService } from './services/blog.service';
 
 
 
@@ -25,7 +27,8 @@ import { NotAuthGuard } from './guards/notAuth.guard';
     HomeComponent,
     RegisterComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    BlogComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,7 @@ import { NotAuthGuard } from './guards/notAuth.guard';
     FormsModule,
     HttpModule
   ],
-  providers: [AuthService, AuthGuard, NotAuthGuard],
+  providers: [AuthService, AuthGuard, NotAuthGuard, BlogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -19,7 +19,7 @@
         <a class="nav-link" routerLink="/profile">Profile</a>
       </li>
       <li class="nav-item" *ngIf="authService.loggedIn()">
-        <a class="nav-link">Blog</a>
+        <a class="nav-link" routerLink="/blog">Blog</a>
       </li>
       <li class="nav-item" *ngIf="!authService.loggedIn()">
         <a class="nav-link disabled" routerLink="/login">Login</a>
