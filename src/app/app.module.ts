@@ -17,6 +17,7 @@ import { NotAuthGuard } from './guards/notAuth.guard';
 import { BlogComponent } from './blog/blog.component';
 import { BlogService } from './services/blog.service';
 import { EditBlogComponent } from './edit-blog/edit-blog.component';
+import { DeleteBlogComponent } from './delete-blog/delete-blog.component';
 
 
 
@@ -30,7 +31,8 @@ import { EditBlogComponent } from './edit-blog/edit-blog.component';
     LoginComponent,
     ProfileComponent,
     BlogComponent,
-    EditBlogComponent
+    EditBlogComponent,
+    DeleteBlogComponent
   ],
   imports: [
     BrowserModule,

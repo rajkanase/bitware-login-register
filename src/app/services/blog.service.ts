@@ -45,4 +45,19 @@ export class BlogService {
     return this.http.put(this.domain + '/api/updateBlog',blog,this.options).map(res=>res.json());
   }
 
+  deleteBlog(id){
+    this.createAuthenticationHeaders();
+    return this.http.delete(this.domain + '/api/deleteBlog/' + id,this.options).map(res=>res.json());
+  }
+
+  likeBlog(id){
+    const blogData = {id:id};
+    return this.http.put(this.domain + '/api/likeBlog',blogData,this.options).map(res=>res.json());
+  }
+
+  dislikeBlog(id){
+    const blogData = {id:id};
+    return this.http.put(this.domain + '/api/dislikeBlog',blogData,this.options).map(res=>res.json());
+  }
+
 }
