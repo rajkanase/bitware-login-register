@@ -561,5 +561,48 @@ router.put('/dislikeBlog',(req,res)=>{
     }
 });
 
+
+router.post('/comment',(req,res)=>{
+   if(!req.body.comment){
+       res.json({success:false,message:'Comment was not provided.'});
+   } else{
+       if(!req.body.id){
+           res.json({success:false,message:'Id was not provided.'});
+       }else{
+           Blog.findOne({_id:req.body.id},(err,blog)=>{
+               if(err){
+                   res.json({success:false,message:err});
+               }else{
+                   if(!blog){
+                       res.json({success:false,message:'Blog not found.'});
+                   }else{
+                       User.findOne({_id:req.decoded.userId},(err,user)=>{
+                           if(err){
+                               res.json({success:false,message:err});
+                           }else{
+                               if(!user){
+                                   res.json({success:false,message:'Cannot authenticate user.'});
+                               }else{
+                                    blog.comment.push({
+                                        comment:req.body.comment,
+                                        commentator:user.username
+                                    });
+                                    blog.save((err)=>{
+                                        if(err){
+                                            res.json({success:false,message:err});
+                                        }else{
+                                            res.json({success:true,message:'Comment saved.'});
+                                        }
+                                    });
+                                }
+                            }
+                       });
+                   }
+               }
+           });
+       }
+   }
+});
+
 module.exports=router;
 

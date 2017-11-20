@@ -60,4 +60,14 @@ export class BlogService {
     return this.http.put(this.domain + '/api/dislikeBlog',blogData,this.options).map(res=>res.json());
   }
 
+  postComment(id,comment){
+    this.createAuthenticationHeaders();
+    const blogData={
+      id:id,
+      comment:comment
+    };
+    return this.http.post(this.domain + '/api/comment',blogData,this.options).map(res=>res.json());
+  
+  }
+
 }

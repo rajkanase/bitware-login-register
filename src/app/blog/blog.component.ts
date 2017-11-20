@@ -19,6 +19,9 @@ export class BlogComponent implements OnInit {
   messageClass;
   message;
   blogPosts;
+  newComment =[];
+  commentForm;
+  enabledComments = [];
   
 
   constructor(
@@ -28,6 +31,7 @@ export class BlogComponent implements OnInit {
     private blogService:BlogService
   ) { 
     this.createNewBlogForm();
+    this.createCommentForm();
     
   }
 
@@ -42,7 +46,6 @@ export class BlogComponent implements OnInit {
 
 
   createNewBlogForm(){
-    console.log('here');
     
     this.form=this.formBuilder.group({
       title:['', Validators.compose([
@@ -126,6 +129,52 @@ dislikeBlog(id){
   });
 }
 
+draftComment(id){
+  this.commentForm.reset();
+  this.newComment=[];
+  this.newComment.push(id);
+}
+
+createCommentForm(){
+  this.commentForm = this.formBuilder.group({
+    comment:['',Validators.compose([
+      Validators.required,
+      Validators.minLength(1),
+      Validators.maxLength(200)
+    ])]
+  });
+}
+
+cancelSubmission(id){
+  const index =this.newComment.indexOf(id);
+  this.newComment.splice(index,1);
+  this.commentForm.reset();
+  this.processing=false;
+}
+
+postComment(id){
+  this.processing=true;
+  const comment = this.commentForm.get('comment').value();
+  this.blogService.postComment(id,comment).subscribe(data=>{
+    this.getAllBlogs();
+    const index =this.newComment.indexOf(id);
+    this.newComment.splice(index,1);
+    this.commentForm.reset();
+    this.processing=false;
+    if(this.enabledComments.indexOf(id) < 0){
+      this.expand(id);
+    }
+  });
+}
+
+expand(id){
+  this.enabledComments.push(id);
+}
+
+collapse(id){
+  const index =this.enabledComments.indexOf(id);
+  this.enabledComments.splice(index,1);
+}
 
 
 
