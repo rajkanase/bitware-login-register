@@ -16,6 +16,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notAuth.guard';
 import { BlogComponent } from './blog/blog.component';
 import { BlogService } from './services/blog.service';
+import { EditBlogComponent } from './edit-blog/edit-blog.component';
 
 
 
@@ -28,7 +29,8 @@ import { BlogService } from './services/blog.service';
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
-    BlogComponent
+    BlogComponent,
+    EditBlogComponent
   ],
   imports: [
     BrowserModule,
