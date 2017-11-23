@@ -61,6 +61,9 @@ export class BlogService {
   }
 
   postComment(id,comment){
+    console.log(id);
+    console.log(comment);
+    
     this.createAuthenticationHeaders();
     const blogData={
       id:id,

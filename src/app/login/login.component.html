@@ -9,13 +9,13 @@
 <form [formGroup]="form" (submit)="onLoginSubmit()">
   <div class="form-group">
     <label for="username">Username</label>
-    <div [ngClass]="{'has-error':(form.controls.username.error && form.controls.username.dirty) || (!usernameValid && form.controls.username.dirty),'has-success':!form.controls.username.errors && usernameValid}">
+    <div [ngClass]="{'has-error':(form.controls.username.error && form.controls.username.dirty) || (form.controls.username.dirty),'has-success':!form.controls.username.errors}">
       <input type="text" class="form-control" name="username" autocomplete="off" placeholder="Username" formControlName="username"/>
       <ul class="help-block">
         <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">This field is required.</li>
         <li *ngIf="(form.controls.username.errors?.minlength || form.controls.username.errors?.maxlength) && form.controls.username.dirty">Minimum characters 3, Maximum characters 15</li>
         <li *ngIf="form.controls.username.errors?.validUsername && form.controls.username.dirty">Username must not have a special characters.</li>
-        <li *ngIf="usernameMessage">{{usernameMessage}}</li>
+        <!-- <li *ngIf="usernameMessage">{{usernameMessage}}</li> -->
       </ul>
     </div>
   </div>

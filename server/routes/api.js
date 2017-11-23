@@ -583,7 +583,7 @@ router.post('/comment',(req,res)=>{
                                if(!user){
                                    res.json({success:false,message:'Cannot authenticate user.'});
                                }else{
-                                    blog.comment.push({
+                                    blog.comments.push({
                                         comment:req.body.comment,
                                         commentator:user.username
                                     });
@@ -591,7 +591,7 @@ router.post('/comment',(req,res)=>{
                                         if(err){
                                             res.json({success:false,message:err});
                                         }else{
-                                            res.json({success:true,message:'Comment saved.'});
+                                            res.json({success:true,message:'Comment Saved.'});
                                         }
                                     });
                                 }

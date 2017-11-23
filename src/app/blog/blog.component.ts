@@ -13,7 +13,7 @@ import { BlogService } from '../services/blog.service';
 export class BlogComponent implements OnInit {
 
   newPost=false;
-  form:FormGroup;
+  form;
   processing=false;
   username;
   messageClass;
@@ -152,9 +152,9 @@ cancelSubmission(id){
   this.processing=false;
 }
 
-postComment(id){
+postComment(id,comment){
   this.processing=true;
-  const comment = this.commentForm.get('comment').value();
+  // const comment = this.commentForm.get('comment').value();
   this.blogService.postComment(id,comment).subscribe(data=>{
     this.getAllBlogs();
     const index =this.newComment.indexOf(id);

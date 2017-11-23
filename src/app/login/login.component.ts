@@ -12,7 +12,7 @@ import { AuthGuard } from '../guards/auth.guard';
 })
 export class LoginComponent implements OnInit {
 
-  form:FormGroup;
+  form;
   message;
   messageClass;
   processing = false;
