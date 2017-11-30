@@ -60,7 +60,7 @@ let commentLengthChecker = (comment) =>{
     if(!comment[0]){
         return false;
     }else{
-        if(comment[0].length > 1 || comment[0].length < 200){
+        if(comment[0].length < 1 || comment[0].length > 200){
             return false;
         }else{
             return true;
@@ -87,12 +87,10 @@ const blogSchema=new Schema({
     likedBy: { type: Array},
     dislikes: { type: Number, default: 0},
     dislikedBy: { type: Array},
-    comments: [
-        {
-            comment:{type:String, validate:commentValidators},
-            commentator:{type:String}
-        }
-    ]
+    comments: [{
+        comment: { type: String, validate: commentValidators },
+        commentator: { type: String }
+      }]
    
 });
 
